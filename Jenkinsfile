@@ -5,30 +5,29 @@ pipeline {
         dockerImage = ''
     }
     agent none
-    options {
-        skipStagesAfterUnstable()
-    }
     stages {
-        stage('Maven'){
+        stage('Get Maven'){
             agent{
                 docker {
                     image 'maven:3-alpine'
                     args '-v /root/.m2:/root/.m2'
                 }
             }
-        }
-        stage('Build') {
-            steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
+            stages{
+                stage('Build') {
+                    steps {
+                        sh 'mvn -B -DskipTests clean package'
+                    }
+                }
+                stage('Test') {
+                    steps {
+                        sh 'mvn test'
+                    }
+                    post {
+                        always {
+                            junit 'target/surefire-reports/*.xml'
+                        }
+                    }
                 }
             }
         }
@@ -52,9 +51,9 @@ pipeline {
                   }
                 }
                 stage('Cleaning up') {
-                  steps{
-                      sh "docker rmi $registry:$BUILD_NUMBER"
-                  }
+                    steps{
+                        sh "docker rmi $registry:$BUILD_NUMBER"
+                    }
                 }
             }
         }
