@@ -9,7 +9,7 @@ pipeline {
         skipStagesAfterUnstable()
     }
     stages {
-        stage('Get Maven'){
+        stage('Maven'){
             agent{
                 docker {
                     image 'maven:3-alpine'
