@@ -1,12 +1,12 @@
 pipeline {
     environment{
-        registry = "shreya14/home"
+        registry = "shreya14/calculator"
         registryCredential = 'dockerhub_id'
         dockerImage = ''
     }
     agent none
     stages {
-        stage('Maven Build and test'){
+        stage('Maven Build + Test'){
             agent{
                 docker {
                     image 'maven:3-alpine'
