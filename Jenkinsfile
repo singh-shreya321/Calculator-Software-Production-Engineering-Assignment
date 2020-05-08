@@ -4,9 +4,7 @@ pipeline {
         registryCredential = 'dockerhub_id'
         dockerImage = ''
     }
-    agent {
-        
-    }
+    agent none
     options {
         skipStagesAfterUnstable()
     }
