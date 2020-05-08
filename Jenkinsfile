@@ -1,12 +1,12 @@
 pipeline {
     environment{
-        registry = "shreya14/"
+        registry = "shreya14/home"
         registryCredential = 'dockerhub_id'
         dockerImage = ''
     }
     agent none
     stages {
-        stage('Get Maven'){
+        stage('Maven Build and test'){
             agent{
                 docker {
                     image 'maven:3-alpine'
@@ -34,14 +34,14 @@ pipeline {
         stage('Deliver') {
             agent any
             stages {
-                stage('Building our image') {
+                stage('Building image') {
                     steps{
                         script {
                             dockerImage = docker.build registry + ":$BUILD_NUMBER"
                         }
                     }
                 }
-                stage('Deploy our image to dockerhub') {
+                stage('Deploying image to dockerhub') {
                   steps{
                     script {
                       docker.withRegistry( '', registryCredential ) {
