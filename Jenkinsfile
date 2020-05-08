@@ -32,11 +32,6 @@ pipeline {
                 }
             }
         }
-        stage('Deliver') { 
-            steps {
-                sh './jenkins/scripts/deliver.sh' 
-            }
-        }
         stage('Deliver') {
             agent any
             stages {
