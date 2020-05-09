@@ -9,8 +9,8 @@ pipeline {
         stage('Maven Build + Test'){
             agent{
                 docker {
-                    image 'maven:3-alpine'
-                    args '-u root:sudo -v /root/.m2:/root/.m2'
+                    image 'maven:3.6.3-jdk-11'
+                    args '-v /root/.m2:/root/.m2' 
                 }
             }
             stages{
